@@ -14,8 +14,8 @@ adc = machine.ADC(ADC2)
 
 blink_period = 0.1
 
-max_bright = 20000
-min_bright = 10000
+max_bright = 12800
+min_bright = 5500
 
 
 def clip(value: float) -> float:
@@ -26,6 +26,13 @@ def clip(value: float) -> float:
         return 1
     return value
 
+def adjusted_duty_cycle(value: int, min_bright: int, max_bright: int) -> float:
+    """inverted ADC values"""
+    if value >= max_bright:
+        return 0
+    elif value <= min_bright:
+        return 1
+    return clip((max_bright - value) / (max_bright - min_bright))
 
 while True:
     value = adc.read_u16()
@@ -36,7 +43,7 @@ while True:
     So we use function clip()
     """
 
-    duty_cycle = clip((value - min_bright) / (max_bright - min_bright))
+    duty_cycle = adjusted_duty_cycle(value, min_bright, max_bright)
 
     led.high()
     time.sleep(blink_period * duty_cycle)
