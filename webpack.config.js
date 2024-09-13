@@ -1,19 +1,19 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',  // Entry point of your JavaScript code
+  entry: ['./src/index.js', './src/script.js'],
   output: {
-    path: path.resolve(__dirname, 'dist'), // Output directory
-    filename: 'main.js',  // Output bundle file
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
   },
-  mode: 'development',  // You can switch to 'production' for production builds
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',  // Transpile modern JavaScript to compatible versions
+          loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
           },
@@ -21,5 +21,5 @@ module.exports = {
       },
     ],
   },
-  watch: true,  // Enable watching for changes
+  watch: true,
 };

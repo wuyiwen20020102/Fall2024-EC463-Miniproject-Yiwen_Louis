@@ -1,7 +1,6 @@
-import {initializeApp} from 'firebase/app';
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBTESduo16ELE-QFjv8Q3RZkY9gRXJJPEk",
@@ -13,9 +12,11 @@ const firebaseConfig = {
     measurementId: "G-1EBW7CQLVS"
   };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-console.log('Hello there, Firestore!');
+window.db = db;
+window.auth = auth;
+
+console.log("Firestore initialized:", db);
