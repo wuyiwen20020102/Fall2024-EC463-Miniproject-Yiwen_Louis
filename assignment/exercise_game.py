@@ -9,7 +9,7 @@ from WifiModCloud import WifiModCloud
 wmc = WifiModCloud()
 wmc.connect_wifi("myssid", "mypassword")
 wmc.setdb_to_firebase(host="https://ec463-miniproject-aae95-default-rtdb.firebaseio.com/", 
-                      auth="GLw50LzgaCJJD4N7OqipNJ4D8hUgrCwJdahAfnKC", 
+                      auth=${{secrets.FIREBASEAUTHTOKEN}}, 
                       tree="pico")
 
 
