@@ -9,7 +9,8 @@ const firebaseConfig = {
     storageBucket: "ec463-miniproject-aae95.appspot.com",
     messagingSenderId: "1015457778417",
     appId: "1:1015457778417:web:7e91098d71011edb63b750",
-    measurementId: "G-1EBW7CQLVS"
+    measurementId: "G-1EBW7CQLVS",
+    databaseURL: "https://ec463-miniproject-aae95-default-rtdb.firebaseio.com/"
   };
 
 const app = initializeApp(firebaseConfig);

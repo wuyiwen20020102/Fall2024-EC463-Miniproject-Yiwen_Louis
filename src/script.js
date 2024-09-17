@@ -14,7 +14,7 @@ firstForm.addEventListener("submit", async (e) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
 
-    await addDoc(collection(window.db, "users"), {
+    await addDoc(collection(window.db, "username-email-passowrd"), {
       uid: userCredential.user.uid,
       username: username,
       email: email
