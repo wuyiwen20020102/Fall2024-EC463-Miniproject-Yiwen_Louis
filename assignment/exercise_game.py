@@ -13,8 +13,8 @@ on_ms = 500
  
 firebase_url = "https://ec463-miniproject-aae95-default-rtdb.firebaseio.com/"
 
-SSID = 'B606'
-PWD = '1234567890'
+SSID = '*****'
+PWD = '**********'
 
 def wificonnection (ssid, pwd):
     wlan = network.WLAN(network.STA_IF)
