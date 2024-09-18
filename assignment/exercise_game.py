@@ -10,27 +10,25 @@ import time
 N: int = 10
 sample_ms = 10.0
 on_ms = 500
-
-#firebase realtime database URL 
+ 
 firebase_url = "https://ec463-miniproject-aae95-default-rtdb.firebaseio.com/"
 
-SSID = 'BU Guest (unencrypted)'
+SSID = 'B606'
+PWD = '1234567890'
 
-#connect to BU guest Wifi
-def wificonnection (ssid):
+def wificonnection (ssid, pwd):
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    
-    wlan.connect(ssid)
+    wlan.connect(ssid,pwd)
 
-    while not wlan.isconnected():
-        print("attempting to connect to WiFi")
+    while wlan.isconnected() == False:
+        print("connecting to WiFi")
         time.sleep(1)
     
-    print("connected to WiFi")
+    print("WiFi is connected")
     print(f"IP Address: {wlan.ifconfig()[0]}")
 
-wificonnection(SSID)
+wificonnection(SSID, PWD)
 
 def random_time_interval(tmin: float, tmax: float) -> float:
     """Return a random time interval between max and min"""
@@ -69,37 +67,33 @@ def scorer(t: list[int | None]) -> dict:
     t_good = [x for x in t if x is not None]
 
     #compute average, minimum, maximum response time
-    min_val = min(t_good)
-    max_val = max(t_good)
-    mean_val = sum(t_good)/N
+    min_t = min(t_good)
+    max_t = max(t_good)
+    mean_t = sum(t_good)/N
     score = (len(t_good))/N
 
-    print("min:", min_val, "max:", max_val, "mean:", mean_val, "score:", score)
+    print("Minimun Response Time:", min_t, "\nMaximum Response Time:", max_t, "\nAverage Response Time:", mean_t, "\nScore:", score)
 
     data = {
-        "min": min_val,
-        "max": max_val,
-        "mean": mean_val,
-        "score": score
+        "Minimun Response Time": min_t,
+        "Maximum Response Time": max_t,
+        "Average Response Time": mean_t,
+        "Score": score
     }
     return data
 
 def push_to_database(user: str, data: dict) -> None:
-    # using "if __name__" allows us to reuse functions in other script files
     headers = {
         'Content-Type': 'application/json',
     }
     
-    #store in json file 
-    entry_url = f"{firebase_url}/{user}.json"
-    
-    #request to update data 
-    response = requests.put(entry_url, json=data, headers=headers)
+    database_url = f"{firebase_url}/{user}.json"
+    response = requests.put(database_url, json=data, headers=headers)
     
     if response.status_code == 200:
-        print(f"Data successfully uploaded: {user}")
+        print(f"Data successfully uploaded!")
     else:
-        print(f"Failed to upload data: {response.status_code}, Response: {response.text}")
+        print(f"Failed to upload data...")
 
 if __name__ == "__main__":
     # using "if __name__" allows us to reuse functions in other script files
@@ -129,7 +123,5 @@ if __name__ == "__main__":
     blinker(5, led)
 
     data = scorer(t)
-
-    user = "user"
-    
+    user = "pico/response_times"
     push_to_database(user, data)

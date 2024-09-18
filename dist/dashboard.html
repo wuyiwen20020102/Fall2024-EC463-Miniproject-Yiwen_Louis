@@ -31,7 +31,7 @@
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        const responseTimesRef = database.ref('response_times');
+        const responseTimesRef = database.ref('pico/response_times');
 
         function displayResponseTimes(times) {
             const responseTimesList = document.getElementById('response-times');

@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBTESduo16ELE-QFjv8Q3RZkY9gRXJJPEk",
+    apiKey: firebase_credential.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "ec463-miniproject-aae95.firebaseapp.com",
     projectId: "ec463-miniproject-aae95",
     storageBucket: "ec463-miniproject-aae95.appspot.com",
