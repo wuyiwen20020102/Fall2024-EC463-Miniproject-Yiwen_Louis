@@ -14,7 +14,7 @@ firstForm.addEventListener("submit", async (e) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
 
-    await addDoc(collection(window.db, "username-email-passowrd"), {
+    await addDoc(collection(window.db, "username-email-pwd"), {
       uid: userCredential.user.uid,
       username: username,
       email: email
@@ -23,6 +23,7 @@ firstForm.addEventListener("submit", async (e) => {
     console.log("User created and saved in Firestore");
   } catch (error) {
     console.error("Error during sign-up:", error);
+    alert(`Sign-up failed: ${error.message}`);
   }
 });
 
@@ -41,6 +42,7 @@ secondForm.addEventListener("submit", async (e) => {
     window.location.href = "/dashboard.html";
   } catch (error) {
     console.error("Error during sign-in:", error);
+    alert(`Sign-in failed: ${error.message}`);
   }
 });
 
